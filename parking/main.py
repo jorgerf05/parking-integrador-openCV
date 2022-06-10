@@ -4,8 +4,8 @@ from selector import Selector
 
 def main():
 
-    for i in sys.argv:
-        if i == "-s":
+    for arg in sys.argv:
+        if arg == "-s":
             selector = Selector()
             selector.start()
 
