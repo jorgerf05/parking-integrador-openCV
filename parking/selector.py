@@ -1,4 +1,4 @@
-import pickle, cv2, sys
+import pickle, cv2
 
 class Selector():
 

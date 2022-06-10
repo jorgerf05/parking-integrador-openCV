@@ -1,7 +1,6 @@
 from time import sleep
 import cv2
 import pickle
-import sys
 import cvzone
 import numpy as np
 from threading import Thread
@@ -59,6 +58,7 @@ class Detector():
                 self.cap.set(cv2.CAP_PROP_POS_FRAMES, 0) #Repetimos el video para fines demostrativos
 
             success, self.img = self.cap.read()
+
             imgGray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY) #No nos interesa trabajar con color, convertimos a escala de grises
             imgBlur = cv2.GaussianBlur(imgGray, (3, 3), 1) #Aplicamos difuminado gaussiano para suavizar bordes
             imgThreshold = cv2.adaptiveThreshold(imgBlur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, #Convertimos a imagen "binaria"(bordes)
@@ -68,7 +68,7 @@ class Detector():
             imgDilate = cv2.dilate(imgMedian, kernel, iterations=1)#Hacemos más anchos los píxeles de detección
         
             self.checkParkingSpace(imgDilate) #Llamamos al método de detección
-            cv2.imshow("Image", self.img)
-            # cv2.imshow("ImageBlur", imgBlur) #Imagen con difuminado gaussiano
-            #cv2.imshow("ImageThres", imgMedian) #Imagen binaria
+            cv2.imshow("Parking", self.img)
+            cv2.imshow("Difuminado", imgBlur) #Imagen con difuminado gaussiano
+            cv2.imshow("Binaria", imgMedian) #Imagen binaria
             cv2.waitKey(20) #Añadimos delay para que el video no se muestre en cámara rápida

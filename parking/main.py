@@ -5,7 +5,7 @@ from selector import Selector
 def main():
 
     for arg in sys.argv:
-        if arg == "-s":
+        if arg == "-s" or arg == "--setup":
             selector = Selector()
             selector.start()
 
