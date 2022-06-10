@@ -23,7 +23,7 @@ class Conexion():
             for i, l in enumerate (lista):
                     self.cursor.execute(f"INSERT IGNORE INTO lugares (id, status) VALUES ({i}, {l});")
         except:
-            print("No se pudo pinche puta")
+            print("No fue posible insertar")
         finally:
             self.mydb.commit()
 
