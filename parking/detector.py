@@ -72,6 +72,3 @@ class Detector():
             # cv2.imshow("ImageBlur", imgBlur) #Imagen con difuminado gaussiano
             #cv2.imshow("ImageThres", imgMedian) #Imagen binaria
             cv2.waitKey(20) #Añadimos delay para que el video no se muestre en cámara rápida
-
-d = Detector()
-d.start()

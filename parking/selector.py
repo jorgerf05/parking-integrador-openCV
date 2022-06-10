@@ -32,7 +32,7 @@ class Selector():
         with open('Lugares.dat', 'wb') as f: #Escribimos los cambios
             pickle.dump(self.listaLugares, f)
     
-    def loop(self):
+    def start(self):
 
         while self.ctrl_loop:
             img = cv2.imread('assets/Parking.png')
@@ -42,5 +42,3 @@ class Selector():
             cv2.imshow("Image", img)
             cv2.setMouseCallback("Image", self.mouseClick)
             cv2.waitKey(1)
-sel = Selector()
-sel.loop()

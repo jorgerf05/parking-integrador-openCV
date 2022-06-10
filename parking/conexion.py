@@ -22,7 +22,6 @@ class Conexion():
         try:
             for i, l in enumerate (lista):
                     self.cursor.execute(f"INSERT IGNORE INTO lugares (id, status) VALUES ({i}, {l});")
-                    print(f"ID: {i} Estado: {l} ")
         except:
             print("No se pudo pinche puta")
         finally:
