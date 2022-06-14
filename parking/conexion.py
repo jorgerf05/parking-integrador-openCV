@@ -17,8 +17,6 @@ class Conexion():
         print("--------------------------\n")
     
     def actualizarLugares(self, lista):
-
-        print("insertando lugares")
         try:
             for i, l in enumerate (lista):
                     self.cursor.execute(f"INSERT IGNORE INTO lugares (id, status) VALUES ({i}, {l});")

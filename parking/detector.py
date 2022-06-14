@@ -1,3 +1,4 @@
+from enum import Flag
 from time import sleep
 import cv2
 import pickle
@@ -9,19 +10,20 @@ from conexion import Conexion
 class Detector():
     
     def __init__(self) -> None:
-        self.cap = cv2.VideoCapture('assets/video.avi') #Archivo de video. A manera de emular un stream de CCTV
+        self.cap = cv2.VideoCapture('assets/video.avi')
         self.ancho = 40
         self.alto = 40
         self.hilo = Thread(target=self.actualizar)
         self.lugares = np.empty(92, dtype=int)
         self.conexion = Conexion("jorge","SisTemas")
+        self.active = True
 
-        with open('Lugares.dat', 'rb') as f: #Cargamos los cajones de los lugares
+        with open('Lugares.dat', 'rb') as f:
             self.posList = pickle.load(f)
 
     def actualizar(self):
-        for _ in range(3):
-            sleep(3)
+        while self.active:
+            sleep(1)
             self.conexion.actualizarLugares(self.lugares)
 
     def checkParkingSpace(self, imgPro):
@@ -62,17 +64,15 @@ class Detector():
     
     def start(self):
         self.hilo.start()
-        b = True
-        while b:
+        while self.active:
  
             if self.cap.get(cv2.CAP_PROP_POS_FRAMES) == self.cap.get(cv2.CAP_PROP_FRAME_COUNT):
                 self.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-                #b = False
 
             _, self.img = self.cap.read()
-            #self.img = cv2.imread('assets/img.jpg')
             procImg = self.processImage(self.img)
             #cv2.imshow("Binario", procImg)
             self.checkParkingSpace(procImg) 
             cv2.imshow("Parking", self.img)
-            cv2.waitKey(1000)
+            input = cv2.waitKey(1000)
+            if input == ord("q"):self.active = False
