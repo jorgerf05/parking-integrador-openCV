@@ -8,6 +8,7 @@ def main():
         if arg == "-s" or arg == "--setup":
             selector = Selector()
             selector.start()
+            sys.exit()
 
     dtr = Detector()
     dtr.start()

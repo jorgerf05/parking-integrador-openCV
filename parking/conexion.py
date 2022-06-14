@@ -1,5 +1,4 @@
 import mysql.connector
-
 class Conexion():
 
     def __init__(self, usuario:str, contra:str):
@@ -19,11 +18,13 @@ class Conexion():
     
     def actualizarLugares(self, lista):
 
+        print("insertando lugares")
         try:
             for i, l in enumerate (lista):
                     self.cursor.execute(f"INSERT IGNORE INTO lugares (id, status) VALUES ({i}, {l});")
-        except:
-            print("No fue posible insertar")
+                    self.cursor.execute(f"UPDATE lugares SET status = {l} WHERE id = {i};")
+        except mysql.connector.Error as err:
+            print(err)
         finally:
             self.mydb.commit()
 
